@@ -1,0 +1,398 @@
+<Window x:Class="ConsoleApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Психологический трекер состояния"
+        Height="760"
+        Width="1280"
+        WindowStartupLocation="CenterScreen"
+        Background="#F3EEE8">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="PageBackground" Color="#F3EEE8"/>
+        <SolidColorBrush x:Key="PanelBackground" Color="#FCF8F4"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#F7EFE8"/>
+        <SolidColorBrush x:Key="SoftAccent" Color="#D8C7B8"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#243042"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#6D6A68"/>
+        <SolidColorBrush x:Key="EventAccent" Color="#B9886B"/>
+        <SolidColorBrush x:Key="EmotionAccent" Color="#8A7AA6"/>
+        <SolidColorBrush x:Key="BodyAccent" Color="#7B9A8D"/>
+        <SolidColorBrush x:Key="ButtonAccent" Color="#5E6E82"/>
+        <SolidColorBrush x:Key="DangerAccent" Color="#B97067"/>
+
+        <Style x:Key="MainCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource PanelBackground}"/>
+            <Setter Property="CornerRadius" Value="24"/>
+            <Setter Property="BorderBrush" Value="#E3D9D0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="24"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <Style x:Key="SoftSectionStyle" TargetType="Border">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="CornerRadius" Value="20"/>
+            <Setter Property="BorderBrush" Value="#E8DDD3"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="18"/>
+            <Setter Property="Margin" Value="0,0,0,16"/>
+        </Style>
+
+        <Style x:Key="TitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+        </Style>
+
+        <Style x:Key="SubtitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+        </Style>
+
+        <Style x:Key="SectionHeadingStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="21"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="Margin" Value="0,0,0,14"/>
+        </Style>
+
+        <Style x:Key="MicroTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="Margin" Value="0,10,0,6"/>
+        </Style>
+
+        <Style x:Key="InputStyle" TargetType="TextBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="Background" Value="#FFFDFC"/>
+            <Setter Property="BorderBrush" Value="#D9CEC4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+        </Style>
+
+        <Style x:Key="MultiInputStyle" TargetType="TextBox">
+            <Setter Property="Padding" Value="12,10"/>
+            <Setter Property="Background" Value="#FFFDFC"/>
+            <Setter Property="BorderBrush" Value="#D9CEC4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
+        </Style>
+
+        <Style x:Key="ComboStyle" TargetType="ComboBox">
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Background" Value="#FFFDFC"/>
+            <Setter Property="BorderBrush" Value="#D9CEC4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+        </Style>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="42"/>
+            <Setter Property="Background" Value="{StaticResource ButtonAccent}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,18,0,0"/>
+        </Style>
+
+        <Style x:Key="DangerButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Background" Value="{StaticResource DangerAccent}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="0,18,0,0"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Style="{StaticResource MainCardStyle}">
+            <StackPanel>
+                <TextBlock Text="Психологический трекер состояния"
+                           Style="{StaticResource TitleStyle}"/>
+                <TextBlock Text="Пространство для наблюдения за тем, что произошло, что вы почувствовали и как это отозвалось в теле."
+                           Style="{StaticResource SubtitleStyle}"
+                           Margin="0,8,0,0"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="430"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+                <Border Style="{StaticResource MainCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Новая запись" Style="{StaticResource SectionHeadingStyle}"/>
+
+                        <Border Style="{StaticResource SoftSectionStyle}">
+                            <StackPanel>
+                                <TextBlock Text="Общее состояние" Style="{StaticResource MicroTitleStyle}"/>
+                                <TextBlock Text="Уровень настроения" Style="{StaticResource LabelStyle}"/>
+                                <Slider Minimum="1"
+                                        Maximum="10"
+                                        TickFrequency="1"
+                                        IsSnapToTickEnabled="True"
+                                        Value="{Binding MoodLevel}"/>
+                                <TextBlock Text="{Binding MoodLevel, StringFormat=Текущее состояние: {0} / 10}"
+                                           Margin="0,8,0,0"
+                                           Foreground="{StaticResource TextPrimary}"
+                                           FontSize="13"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource SoftSectionStyle}">
+                            <StackPanel>
+                                <DockPanel Margin="0,0,0,10">
+                                    <Border Width="10" Height="10" CornerRadius="5" Background="{StaticResource EventAccent}" Margin="0,5,10,0"/>
+                                    <TextBlock Text="Что произошло" Style="{StaticResource MicroTitleStyle}"/>
+                                </DockPanel>
+
+                                <TextBlock Text="Название события" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding EventTitle, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource InputStyle}"/>
+
+                                <TextBlock Text="Описание события" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding EventDescription, UpdateSourceTrigger=PropertyChanged}"
+                                         Height="82"
+                                         Style="{StaticResource MultiInputStyle}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource SoftSectionStyle}">
+                            <StackPanel>
+                                <DockPanel Margin="0,0,0,10">
+                                    <Border Width="10" Height="10" CornerRadius="5" Background="{StaticResource EmotionAccent}" Margin="0,5,10,0"/>
+                                    <TextBlock Text="Что я почувствовал" Style="{StaticResource MicroTitleStyle}"/>
+                                </DockPanel>
+
+                                <TextBlock Text="Эмоция" Style="{StaticResource LabelStyle}"/>
+                                <ComboBox ItemsSource="{Binding EmotionTypes}"
+                                          SelectedItem="{Binding SelectedEmotionType}"
+                                          Style="{StaticResource ComboStyle}"/>
+
+                                <TextBlock Text="Интенсивность эмоции" Style="{StaticResource LabelStyle}"/>
+                                <Slider Minimum="1"
+                                        Maximum="10"
+                                        TickFrequency="1"
+                                        IsSnapToTickEnabled="True"
+                                        Value="{Binding EmotionIntensity}"/>
+                                <TextBlock Text="{Binding EmotionIntensity, StringFormat=Интенсивность: {0} / 10}"
+                                           Margin="0,8,0,0"
+                                           Foreground="{StaticResource TextPrimary}"
+                                           FontSize="13"/>
+
+                                <TextBlock Text="Комментарий" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding EmotionComment, UpdateSourceTrigger=PropertyChanged}"
+                                         Height="70"
+                                         Style="{StaticResource MultiInputStyle}"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Style="{StaticResource SoftSectionStyle}">
+                            <StackPanel>
+                                <DockPanel Margin="0,0,0,10">
+                                    <Border Width="10" Height="10" CornerRadius="5" Background="{StaticResource BodyAccent}" Margin="0,5,10,0"/>
+                                    <TextBlock Text="Как это отозвалось в теле" Style="{StaticResource MicroTitleStyle}"/>
+                                </DockPanel>
+
+                                <TextBlock Text="Часть тела" Style="{StaticResource LabelStyle}"/>
+                                <ComboBox ItemsSource="{Binding BodyParts}"
+                                          SelectedItem="{Binding SelectedBodyPart}"
+                                          Style="{StaticResource ComboStyle}"/>
+
+                                <TextBlock Text="Ощущение" Style="{StaticResource LabelStyle}"/>
+                                <TextBox Text="{Binding BodySensationDescription, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource InputStyle}"/>
+
+                                <TextBlock Text="Интенсивность ощущения" Style="{StaticResource LabelStyle}"/>
+                                <Slider Minimum="1"
+                                        Maximum="10"
+                                        TickFrequency="1"
+                                        IsSnapToTickEnabled="True"
+                                        Value="{Binding BodySensationIntensity}"/>
+                                <TextBlock Text="{Binding BodySensationIntensity, StringFormat=Интенсивность: {0} / 10}"
+                                           Margin="0,8,0,0"
+                                           Foreground="{StaticResource TextPrimary}"
+                                           FontSize="13"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Button Content="Сохранить запись"
+                                Command="{Binding AddEntryCommand}"
+                                Style="{StaticResource PrimaryButtonStyle}"/>
+                    </StackPanel>
+                </Border>
+            </ScrollViewer>
+
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="285"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Style="{StaticResource MainCardStyle}">
+                    <DockPanel>
+                        <TextBlock Text="История наблюдений"
+                                   Style="{StaticResource SectionHeadingStyle}"
+                                   DockPanel.Dock="Top"/>
+
+                        <ListBox ItemsSource="{Binding Entries}"
+                                 SelectedItem="{Binding SelectedEntry}"
+                                 BorderThickness="0"
+                                 Background="Transparent"
+                                 FontSize="13">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Background="#FFFDFC"
+                                            BorderBrush="#E5DBD1"
+                                            BorderThickness="1"
+                                            CornerRadius="16"
+                                            Padding="14"
+                                            Margin="0,0,0,10">
+                                        <StackPanel>
+                                            <TextBlock Text="{Binding CreatedAt, StringFormat={}{0:dd.MM.yyyy HH:mm}}"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="{StaticResource TextPrimary}"/>
+                                            <TextBlock Text="{Binding EventTitle, StringFormat=Событие: {0}}"
+                                                       Margin="0,6,0,0"
+                                                       Foreground="{StaticResource TextSecondary}"/>
+                                            <TextBlock Text="{Binding EmotionType, StringFormat=Эмоция: {0}}"
+                                                       Margin="0,2,0,0"
+                                                       Foreground="{StaticResource TextSecondary}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </Border>
+
+                <Border Grid.Row="1" Style="{StaticResource MainCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Подробности записи" Style="{StaticResource SectionHeadingStyle}"/>
+
+                        <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                      MaxHeight="360">
+                            <Border Background="#F8F1EA"
+                                    CornerRadius="18"
+                                    Padding="18">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding SelectedEntry.CreatedAt, StringFormat=Дата: {0:dd.MM.yyyy HH:mm}}"
+                                               FontSize="14"
+                                               FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextPrimary}"/>
+                                    <TextBlock Text="{Binding SelectedEntry.MoodLevel, StringFormat=Общее состояние: {0} / 10}"
+                                               Margin="0,8,0,0"
+                                               FontSize="14"
+                                               Foreground="{StaticResource TextSecondary}"/>
+
+                                    <Border Background="#FFFDFC"
+                                            CornerRadius="14"
+                                            Padding="14"
+                                            Margin="0,18,0,0"
+                                            BorderBrush="#E5DBD1"
+                                            BorderThickness="1">
+                                        <StackPanel>
+                                            <TextBlock Text="Что произошло"
+                                                       FontSize="15"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="{StaticResource EventAccent}"/>
+                                            <TextBlock Text="{Binding SelectedEntry.EventTitle, StringFormat=Название: {0}}"
+                                                       Margin="0,10,0,0"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="{StaticResource TextPrimary}"/>
+                                            <TextBlock Text="{Binding SelectedEntry.EventDescription, StringFormat=Описание: {0}}"
+                                                       Margin="0,6,0,0"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="{StaticResource TextSecondary}"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Background="#FFFDFC"
+                                            CornerRadius="14"
+                                            Padding="14"
+                                            Margin="0,14,0,0"
+                                            BorderBrush="#E5DBD1"
+                                            BorderThickness="1">
+                                        <StackPanel>
+                                            <TextBlock Text="Что я почувствовал"
+                                                       FontSize="15"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="{StaticResource EmotionAccent}"/>
+                                            <TextBlock Text="{Binding SelectedEntry.EmotionType, StringFormat=Эмоция: {0}}"
+                                                       Margin="0,10,0,0"
+                                                       Foreground="{StaticResource TextPrimary}"/>
+                                            <TextBlock Text="{Binding SelectedEntry.EmotionIntensity, StringFormat=Интенсивность: {0} / 10}"
+                                                       Margin="0,6,0,0"
+                                                       Foreground="{StaticResource TextSecondary}"/>
+                                            <TextBlock Text="{Binding SelectedEntry.EmotionComment, StringFormat=Комментарий: {0}}"
+                                                       Margin="0,6,0,0"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="{StaticResource TextSecondary}"/>
+                                        </StackPanel>
+                                    </Border>
+
+                                    <Border Background="#FFFDFC"
+                                            CornerRadius="14"
+                                            Padding="14"
+                                            Margin="0,14,0,0"
+                                            BorderBrush="#E5DBD1"
+                                            BorderThickness="1">
+                                        <StackPanel>
+                                            <TextBlock Text="Как это отозвалось в теле"
+                                                       FontSize="15"
+                                                       FontWeight="SemiBold"
+                                                       Foreground="{StaticResource BodyAccent}"/>
+                                            <TextBlock Text="{Binding SelectedEntry.BodyPart, StringFormat=Часть тела: {0}}"
+                                                       Margin="0,10,0,0"
+                                                       Foreground="{StaticResource TextPrimary}"/>
+                                            <TextBlock Text="{Binding SelectedEntry.BodySensationDescription, StringFormat=Ощущение: {0}}"
+                                                       Margin="0,6,0,0"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="{StaticResource TextSecondary}"/>
+                                            <TextBlock Text="{Binding SelectedEntry.BodySensationIntensity, StringFormat=Интенсивность: {0} / 10}"
+                                                       Margin="0,6,0,0"
+                                                       Foreground="{StaticResource TextSecondary}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </ScrollViewer>
+
+                        <Button Content="Удалить запись"
+                                Command="{Binding DeleteEntryCommand}"
+                                Style="{StaticResource DangerButtonStyle}"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
