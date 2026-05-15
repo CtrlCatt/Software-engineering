@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using ConsoleApp1.Services;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
@@ -9,6 +10,10 @@ namespace ConsoleApp1.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
+        private AnalysisType _selectedAnalysisType = AnalysisType.Настроение;
+        private string _analysisResult = "Выберите тип анализа и нажмите кнопку.";
+        private readonly AnalysisStrategyFactory _analysisFactory = new();
+        private readonly DiaryEntryHistory _entryHistory = new();
         private int _moodLevel = 5;
         private EmotionType _selectedEmotionType = EmotionType.Спокойствие;
         private int _emotionIntensity = 5;
@@ -24,6 +29,29 @@ namespace ConsoleApp1.ViewModels
 
         public Array EmotionTypes => Enum.GetValues(typeof(EmotionType));
         public Array BodyParts => Enum.GetValues(typeof(BodyPart));
+
+        public Array AnalysisTypes => Enum.GetValues(typeof(AnalysisType));
+
+        public AnalysisType SelectedAnalysisType
+        {
+            get => _selectedAnalysisType;
+            set
+            {
+                _selectedAnalysisType = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public string AnalysisResult
+        {
+            get => _analysisResult;
+            set
+            {
+                _analysisResult = value;
+                OnPropertyChanged();
+            }
+        }
+        public ICommand AnalyzeCommand { get; }
 
         public int MoodLevel
         {
@@ -127,11 +155,20 @@ namespace ConsoleApp1.ViewModels
 
         public ICommand AddEntryCommand { get; }
         public ICommand DeleteEntryCommand { get; }
+        public ICommand RestoreDeletedEntryCommand { get; }
 
         public MainViewModel()
         {
             AddEntryCommand = new RelayCommand(_ => AddEntry());
-            DeleteEntryCommand = new RelayCommand(_ => DeleteEntry(), _ => SelectedEntry != null);
+            DeleteEntryCommand = new RelayCommand(_ => DeleteEntry());
+            AnalyzeCommand = new RelayCommand(_ => AnalyzeEntries());
+            RestoreDeletedEntryCommand = new RelayCommand(_ => RestoreDeletedEntry());
+        }
+
+        private void AnalyzeEntries()
+        {
+            var strategy = _analysisFactory.CreateStrategy(SelectedAnalysisType);
+            AnalysisResult = strategy.Analyze(Entries);
         }
 
         private void AddEntry()
@@ -162,10 +199,28 @@ namespace ConsoleApp1.ViewModels
 
         private void DeleteEntry()
         {
-            if (SelectedEntry != null)
+            if (SelectedEntry == null)
             {
-                Entries.Remove(SelectedEntry);
+                MessageBox.Show("Сначала выберите запись для удаления.");
+                return;
             }
+
+            _entryHistory.SaveDeletedEntry(SelectedEntry);
+            Entries.Remove(SelectedEntry);
+            SelectedEntry = null;
+        }
+        private void RestoreDeletedEntry()
+        {
+            var restoredEntry = _entryHistory.RestoreLastDeletedEntry();
+
+            if (restoredEntry == null)
+            {
+                MessageBox.Show("Нет удалённой записи для восстановления.");
+                return;
+            }
+
+            Entries.Add(restoredEntry);
+            SelectedEntry = restoredEntry;
         }
 
         private void ClearForm()
