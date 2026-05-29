@@ -2,15 +2,15 @@ namespace ConsoleApp1.Models
 {
     public enum EmotionType
     {
-        Радость,
-        Грусть,
-        Тревога,
-        Злость,
-        Страх,
-        Спокойствие,
-        Интерес,
-        Стыд,
-        Вина,
-        Удивление
+        Joy,
+        Sadness,
+        Anxiety,
+        Anger,
+        Fear,
+        Calmness,
+        Interest,
+        Shame,
+        Guilt,
+        Surprise
     }
 }
