@@ -25,10 +25,5 @@ namespace ConsoleApp1.ViewModels
         {
             _execute(parameter);
         }
-
-        public void RaiseCanExecuteChanged()
-        {
-            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-        }
     }
 }
